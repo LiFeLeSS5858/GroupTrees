@@ -9,26 +9,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
 
 namespace Практика
 {
     public partial class Form1 : Form
     {
-        public string filename;
-        public string[] myfile;
+        public string filename; // all file's words in one text 
+        public string[] myfile; // files's words in list
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        void button2_Click(object sender, EventArgs e)
         {
-            label1.Text = Convert.ToString(myfile.Length);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-           
+            Stopwatch watch1 = new Stopwatch();
+            watch1.Start();
+            var listtree = new List<int>();
+            for (int i = 0; i < myfile.Length;i++)
+            {
+                listtree.Add(myfile[i],1);
+            }
+            watch1.Stop();
+            chart1.Series["ListTree"].Points.AddXY(0, 0.1, 1, watch1);
+            label1.Text = Convert.ToString(myfile.Length);      
         }
 
         void button1_Click(object sender, EventArgs e)
