@@ -26,14 +26,15 @@ namespace Практика
         {
             Stopwatch watch1 = new Stopwatch();
             watch1.Start();
-            var listtree = new List<int>();
+            var listtree = new ListTree();
             for (int i = 0; i < myfile.Length;i++)
             {
                 listtree.Add(myfile[i],1);
             }
             watch1.Stop();
-            chart1.Series["ListTree"].Points.AddXY(0, 0.1, 1, watch1);
-            label1.Text = Convert.ToString(myfile.Length);      
+            chart1.Series["ListTree"].Points.AddXY(0, 0.1, 1, watch1,1);
+            label1.Text = Convert.ToString(myfile.Length);
+            label2.Text = Convert.ToString(listtree.Count);
         }
 
         void button1_Click(object sender, EventArgs e)

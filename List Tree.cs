@@ -6,82 +6,85 @@ using System.Threading.Tasks;
 
 namespace Практика
 {
-    class List<T> : IPerfix<T>
+    public class ListTree : IPrefix
     {
-        private Node<T> root;
-        public int Count { get; set; }
-        public List()
+        private class Node
         {
-            root = new Node<T>('\0', default(T));
-        }
-
-        public void Add(string key, T data)
-        {
-            AddNode(key, data, root);
-            Count++;
-        }
-
-        private void AddNode(string key, T data, Node<T> node)
-        {
-            if (string.IsNullOrEmpty(key))
+            public char c { set; get; }
+            public List<Node> childs;
+            public int value { set; get; }
+            public bool isEndOfWord { set; get; }
+            public Node(char ch)
             {
-                if (node.Isword)
-                {
-                    node.Data = data;
-                    node.Isword = true;
-                }
+                c = ch;
+                childs = new List<Node>();
+                isEndOfWord = false;
             }
-            else
+        }
+        private Node root;
+        public ListTree()
+        {
+            root = new Node(' ');
+        }
+        public void Add(string Key, int Value)
+        {
+            var p = root;
+            foreach (var i in Key)
             {
-                var symbol = key[0];
-                var subnode = node.TryFind(symbol);
-                if (subnode != null)
+                // находим интекс
+                // в этом узле с совпадает с текущим символом i из сьроки Key
+                int ind = p.childs.FindIndex(t => t.c == i);
+                if (ind < 0)
                 {
-                    AddNode(key.Substring(1), data, subnode);
+                    p.childs.Add(new Node(i));
+                    p = p.childs.Last();
                 }
                 else
-                {
-                    var newNode = new Node<T>(key[0], data);
-                    node.SubNodes.Add(key[0], newNode);
-                    AddNode(key.Substring(1), data, newNode);
-                }
+                    p = p.childs[ind];
             }
-        }
-        public int this[char key]
-        {
-            set { }
-            get { return key; }
-        }
+            if (!p.isEndOfWord)
+                ++root.value; //Увеличиваю счётчик слов
+            p.isEndOfWord = true;
+            p.value = Value;
 
-        public bool Search(string key, out T value)
-        {
-            return SearchNode(key, root, out value);
         }
-
-        private bool SearchNode(string key, Node<T> node, out T value)
+        public int Count { get { return root.value; } }
+        private Node FindNode(string Key)
         {
-            value = default(T);
-            var result = false;
-            int col = 0;
-            if (string.IsNullOrEmpty(key))
+            var p = root;
+            foreach (var i in Key)
             {
-                if (node.Isword != true)
+                int ind = p.childs.FindIndex(t => t.c == i);
+                if (ind < 0)
                 {
-                    value = node.Data;
-                    result = true;
+                    return null;
                 }
-                col++;
+                else
+                    p = p.childs[ind];
             }
-            else
+            return p;
+        }
+        public bool ContainsKey(string Key)
+        {
+            var p = FindNode(Key);
+            return p == null ? false : p.isEndOfWord;
+        }
+        public int this[string Key]
+        {
+            set
             {
-                var subnode = node.TryFind(key[0]);
-                if (subnode != null)
-                {
-                    result = SearchNode(key.Substring(1), subnode, out value);
-                }
+                Add(Key, value);
             }
-
-            return result;
+            get
+            {
+                var res = FindNode(Key);
+                if (res == null)
+                {
+                    throw new System.Collections.Generic.KeyNotFoundException();
+                }
+                else
+                    return res.value;
+            }
         }
     }
 }
