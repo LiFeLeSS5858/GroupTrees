@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LinkedTree.cs" />
     <Compile Include="DictionaryTree.cs" />
     <Compile Include="List Tree.cs" />
     <Compile Include="Form1.cs">

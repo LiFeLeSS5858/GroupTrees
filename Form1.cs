@@ -17,27 +17,49 @@ namespace Практика
 
         void button2_Click(object sender, EventArgs e)
         {
-            Stopwatch[] time= null;
-            Stopwatch watch1 = new Stopwatch();
-            var listtree = new ListTree();
-            str = "";
-            foreach (var i in myfile)
+            int N = 25;
+            double[] time = new double[N];
+            double tmin=300000, tmax=0, tmed=0, median=0,sum=0;
+            for (int j = 0; j < N; j++)
             {
-                if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
-                    str += i;
-                else if (str.Length > 0)
+                System.Diagnostics.Stopwatch watch; // объявляем метод 
+                long elapsedMs; // объявляем переменную 
+                watch = System.Diagnostics.Stopwatch.StartNew(); // запускаем таймер 
+                var listtree = new ListTree();
+                str = "";
+                foreach (var i in myfile)
                 {
-                    if (listtree.ContainsKey(str))
-                        ++listtree[str];
-                    else
-                        listtree.Add(str, 1);
-                    str = "";
+                    if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
+                        str += i;
+                    else if (str.Length > 0)
+                    {
+                        if (listtree.ContainsKey(str))
+                            ++listtree[str];
+                        else
+                            listtree.Add(str, 1);
+                        str = "";
+                    }
                 }
-            }
+                watch.Stop(); // останавливаем таймер 
+                elapsedMs = watch.ElapsedMilliseconds; // присваиваем значение времени 
+                time[j] = (int)elapsedMs; // добавляем в массив
 
-            chart1.Series["ListTree"].Points.AddXY(0, 0.1, 1, watch1,1);
-            label1.Text = Convert.ToString(myfile.Length);
-            label2.Text = Convert.ToString(listtree.Count);
+            }
+            for (int i = 0; i < N; i++)
+            {
+                if(time[i]<tmin)
+                {
+                    tmin = time[i];
+                }
+                if (time[i] > tmax)
+                {
+                    tmax = time[i];
+                }
+                sum += time[i];
+            }
+            tmed = (tmax + tmin) / 2;
+            median = sum / N;
+            chart1.Series["ListTree"].Points.AddXY(1,tmin,tmax,((tmed+tmin)/2), ((tmed + tmax) / 2), tmed);
         }
 
         void button1_Click(object sender, EventArgs e)
@@ -52,52 +74,96 @@ namespace Практика
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            Stopwatch[] time = null;
-            Stopwatch watch1 = new Stopwatch();
-            var dictionarytree = new DictionaryTree();
-            str = "";
-            foreach (var i in myfile)
+            int N = 25;
+            double[] time = new double[N];
+            double tmin = 300000, tmax = 0, tmed = 0, median = 0, sum = 0;
+            for (int j = 0; j < N; j++)
             {
-                if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
-                    str += i;
-                else if (str.Length > 0)
+                System.Diagnostics.Stopwatch watch; // объявляем метод 
+                long elapsedMs; // объявляем переменную 
+                watch = System.Diagnostics.Stopwatch.StartNew(); // запускаем таймер 
+                var dictionarytree = new DictionaryTree();
+                str = "";
+                foreach (var i in myfile)
                 {
-                    if (dictionarytree.ContainsKey(str))
-                        ++dictionarytree[str];
-                    else
-                        dictionarytree.Add(str, 1);
-                    str = "";
+                    if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
+                        str += i;
+                    else if (str.Length > 0)
+                    {
+                        if (dictionarytree.ContainsKey(str))
+                            ++dictionarytree[str];
+                        else
+                            dictionarytree.Add(str, 1);
+                        str = "";
+                    }
                 }
-            }
+                watch.Stop(); // останавливаем таймер 
+                elapsedMs = watch.ElapsedMilliseconds; // присваиваем значение времени 
+                time[j] = (int)elapsedMs; // добавляем в массив
 
-            chart1.Series["DictionaryTree"].Points.AddXY(0, 0.1, 1, watch1, 1);
-            label1.Text = Convert.ToString(myfile.Length);
-            label2.Text = Convert.ToString(dictionarytree.Count);
+            }
+            for (int i = 0; i < N; i++)
+            {
+                if (time[i] < tmin)
+                {
+                    tmin = time[i];
+                }
+                if (time[i] > tmax)
+                {
+                    tmax = time[i];
+                }
+                sum += time[i];
+            }
+            tmed = (tmax + tmin) / 2;
+            median = sum / N;
+            chart1.Series["DictionaryTree"].Points.AddXY(4, tmin, tmax, ((tmed + tmin) / 2), ((tmed + tmax) / 2), tmed);
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            Stopwatch[] time = null;
-            Stopwatch watch1 = new Stopwatch();
-            var linkedtree = new LinkedTree();
-            str = "";
-            foreach (var i in myfile)
+            int N = 25;
+            double[] time = new double[N];
+            double tmin = 300000, tmax = 0, tmed = 0, median = 0, sum = 0;
+            for (int j = 0; j < N; j++)
             {
-                if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
-                    str += i;
-                else if (str.Length > 0)
+                System.Diagnostics.Stopwatch watch; // объявляем метод 
+                long elapsedMs; // объявляем переменную 
+                watch = System.Diagnostics.Stopwatch.StartNew(); // запускаем таймер 
+                var linkedtree = new LinkedTree();
+                str = "";
+                foreach (var i in myfile)
                 {
-                    if (linkedtree.ContainsKey(str))
-                        ++linkedtree[str];
-                    else
-                        linkedtree.Add(str, 1);
-                    str = "";
+                    if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
+                        str += i;
+                    else if (str.Length > 0)
+                    {
+                        if (linkedtree.ContainsKey(str))
+                            ++linkedtree[str];
+                        else
+                            linkedtree.Add(str, 1);
+                        str = "";
+                    }
                 }
-            }
+                watch.Stop(); // останавливаем таймер 
+                elapsedMs = watch.ElapsedMilliseconds; // присваиваем значение времени 
+                time[j] = (int)elapsedMs; // добавляем в массив
 
-            chart1.Series["LinkedTree"].Points.AddXY(0, 0.1, 1, watch1, 1);
-            label1.Text = Convert.ToString(myfile.Length);
-            label2.Text = Convert.ToString(linkedtree.Count);
+            }
+            for (int i = 0; i < N; i++)
+            {
+                if (time[i] < tmin)
+                {
+                    tmin = time[i];
+                }
+                if (time[i] > tmax)
+                {
+                    tmax = time[i];
+                }
+                sum += time[i];
+            }
+            tmed = (tmax + tmin) / 2;
+            median = sum / N;
+            chart1.Series["LinkedTree"].Points.AddXY(2, tmin, tmax, ((tmed + tmin) / 2), ((tmed + tmax) / 2), tmed);
         }
     }
 }
