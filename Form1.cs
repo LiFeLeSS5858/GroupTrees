@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,26 +9,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
 
 namespace Практика
 {
     public partial class Form1 : Form
     {
-        public string filename;
-        public string[] myfile;
+        public string filename; // all file's words in one text 
+        public string[] myfile; // files's words in list
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        void button2_Click(object sender, EventArgs e)
         {
+            Stopwatch watch1 = new Stopwatch();
+            watch1.Start();
+            var listtree = new ListTree();
+            for (int i = 0; i < myfile.Length;i++)
+            {
+                listtree.Add(myfile[i],1);
+            }
+            watch1.Stop();
+            chart1.Series["ListTree"].Points.AddXY(0, 0.1, 1, watch1,1);
             label1.Text = Convert.ToString(myfile.Length);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
+            label2.Text = Convert.ToString(listtree.Count);
         }
 
         void button1_Click(object sender, EventArgs e)
@@ -96,7 +102,6 @@ namespace Практика
                     str = ""; // обнуляем строку
                 }
             }
-            label2.Text = Convert.ToString(obj.InternalNodeCount);
         }
     }
 }

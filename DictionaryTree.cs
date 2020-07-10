@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +6,7 @@ using System.Threading.Tasks;
 
 namespace Практика
 {
-    interface IPrefix
-    {
-        int Count { get; }                    // количество уникальных ключей в словаре
-        bool ContainsKey(string Key);         // определяет, содержится ли указанный ключ в словаре
-        void Add(string Key, int Value);      // добавляет указанные ключ и значение в словарь
-        int this[string Key] { set; get; }    // возвращает или задает значение с указанным ключом
 
-        int LeafCount { get; }  // число листьев дерева
-        int InternalNodeCount { get; } // число внутренних узлов
-        int SamePrefixCount(string prefix); // число слов с префиксом prefix
-        List<string> SamePrefixWords(string prefix); // вывод всех слова с префиксом prefix
-    }
     public class Node
     {
         public char K { set; get; } // символ 
