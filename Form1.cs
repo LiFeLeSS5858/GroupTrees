@@ -46,14 +46,14 @@ namespace Практика
             int[] arr;
             arr = Funck(10);
         }
-        public static int[] Funck(int N)
+        public static int[] Funck(int N) //функцию для подсчета времени 
         {
-            int[] Arr = new int[N];
-            for (int j = 0; j < N; j++)
+            int[] Arr = new int[N]; // создаем массив под значения времени 
+            for (int j = 0; j < N; j++) // пускаем цикл 
             {
-                System.Diagnostics.Stopwatch watch;
-                long elapsedMs;
-                watch = System.Diagnostics.Stopwatch.StartNew();
+                System.Diagnostics.Stopwatch watch; // объявляем метод 
+                long elapsedMs; // объявляем переменную 
+                watch = System.Diagnostics.Stopwatch.StartNew(); // запускаем таймер 
                 var obj = new DictionaryTree();
                 string input_text = System.IO.File.ReadAllText(@"big.txt");
                 string str = "";
@@ -70,30 +70,30 @@ namespace Практика
                         str = "";
                     }
                 }
-                watch.Stop();
-                elapsedMs = watch.ElapsedMilliseconds;
-                Arr[j] = (int)elapsedMs;
+                watch.Stop(); // останавливаем таймер 
+                elapsedMs = watch.ElapsedMilliseconds; // присваиваем значение времени 
+                Arr[j] = (int)elapsedMs; // добавляем в массив
 
             }
-            return Arr;
+            return Arr; // возвращаем массив
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            var obj = new DictionaryTree();
-            string input_text = System.IO.File.ReadAllText(@"big.txt");
-            string str = "";
-            foreach (var i in input_text)
+            var obj = new DictionaryTree(); // создаем объект класса 
+            string input_text = System.IO.File.ReadAllText(@"big.txt"); // 
+            string str = ""; // создаем пустую строку
+            foreach (var i in input_text) // перебираем файл по буквам 
             {
-                if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'')
-                    str += i;
-                else if (str.Length > 0)
+                if (i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i == '\'') // проверяем входит ли i в диапазон символов
+                    str += i; // добавляем символ в строку 
+                else if (str.Length > 0) // если строка не пустая 
                 {
-                    if (obj.ContainsKey(str))
-                        ++obj[str];
+                    if (obj.ContainsKey(str)) // проверяем есть ли слово в списке дочерних узлов 
+                        ++obj[str]; // добавляем слово в список
                     else
-                        obj.Add(str, 1);
-                    str = "";
+                        obj.Add(str, 1); // добавляем слово в список
+                    str = ""; // обнуляем строку
                 }
             }
             label2.Text = Convert.ToString(obj.InternalNodeCount);
