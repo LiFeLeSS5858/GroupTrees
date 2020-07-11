@@ -103,8 +103,5 @@ namespace Практика
 
             }
         }
-        public int LeafCount { get { throw new NotImplementedException(); } }
-        public int SamePrefixCount(string prefix) { throw new NotImplementedException(); }
-        public List<string> SamePrefixWords(string prefix) { throw new NotImplementedException(); }
     }
 }

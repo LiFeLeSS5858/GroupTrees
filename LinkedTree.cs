@@ -128,21 +128,6 @@ namespace Практика
                 }
             }
         }
-        // Заглушки
-        public int InternalNodeCount // число внутренних узлов
-        {
-            get { throw new NotImplementedException(); }
-        }
-        public int SamePrefixCount(string prefix) // число слов с префиксом prefix
-        {
-            throw new NotImplementedException();
-        }
-        public List<string> SamePrefixWords(string prefix)
-        {
-            throw new NotImplementedException(); // вывод всех слова с префиксом prefix
-        }
-
-
     }
 
 
